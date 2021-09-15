@@ -8,6 +8,7 @@ const text = {
   TITLE: 0.07 * screen.WIDTH,
   NORMAL: 0.05 * screen.WIDTH,
   DESCRIPTION: 0.04 * screen.WIDTH,
+  SMALL: 0.03 * screen.WIDTH,
 };
 
 const spacing = {

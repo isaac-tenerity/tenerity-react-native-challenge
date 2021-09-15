@@ -5,4 +5,5 @@ export const colors = {
   black: '#000000',
   danger: '#FF0000',
   success: '#00b01d',
+  gray: '#c0c0c0',
 };
