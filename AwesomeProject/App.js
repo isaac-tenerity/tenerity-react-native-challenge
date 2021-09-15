@@ -16,7 +16,7 @@ import {
   Fade,
 } from 'rn-placeholder';
 
-import LogoImage from './assets/logo.png';
+import LogoImage from './src/application/assets/logo.png';
 
 const App = () => {
   return (
