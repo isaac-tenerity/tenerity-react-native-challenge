@@ -18,7 +18,9 @@ const SliderItem = ({ item }) => {
           <Text style={styles.descriptionText}>{item.description}</Text>
           <Text style={styles.priceText}>{item.price}$</Text>
           <View style={styles.tagContainer}>
-            <TagItem tagTitle="expired soon" />
+            <TagItem title="expires soon" />
+            <TagItem title="expires soon" />
+            <TagItem title="expires soon" />
           </View>
         </View>
 
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     flexDirection: 'row',
+    width: screen.WIDTH - 40,
   },
   imageBackground: {
     height: null,

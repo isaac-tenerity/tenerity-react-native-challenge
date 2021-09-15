@@ -3,10 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../../application/common/colors';
 import { spacing, text } from '../../application/common/sizes';
 
-const TagItem = ({ tagTitle }) => {
+const TagItem = ({ title }) => {
   return (
     <View style={styles.tagContainer}>
-      <Text style={styles.tagTitle}>{tagTitle}</Text>
+      <Text style={styles.tagTitle}>{title}</Text>
     </View>
   );
 };
@@ -14,7 +14,8 @@ const TagItem = ({ tagTitle }) => {
 const styles = StyleSheet.create({
   tagContainer: {
     backgroundColor: colors.secondary,
-    padding: spacing.NORMAL,
+    padding: spacing.SMALL,
+    margin: spacing.SMALL,
     borderRadius: 10,
   },
   tagTitle: {
