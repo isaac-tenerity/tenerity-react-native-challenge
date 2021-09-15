@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { colors } from '../../application/common/colors';
 import { spacing, text } from '../../application/common/sizes';
 import TagItem from './TagItem';
 
-const OfferItem = ({ item }) => {
+const OfferItem = ({ item, onPress }) => {
   return (
-    <View style={styles.mainContainer}>
+    <TouchableOpacity onPress={onPress} style={styles.mainContainer}>
       <View style={styles.imageTextContainer}>
         <View style={{ flex: 0.3 }}>
           <Image source={{ uri: item.image }} style={styles.image} />
@@ -16,7 +16,7 @@ const OfferItem = ({ item }) => {
           <Text style={styles.priceText}>{item.price}$</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

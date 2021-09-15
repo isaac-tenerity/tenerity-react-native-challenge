@@ -3,6 +3,7 @@ import { Text, SafeAreaView, View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { colors } from '../../application/common/colors';
 import { spacing } from '../../application/common/sizes';
+import ScreenNames from '../../application/utils/ScreenNames';
 import ListEmptyComponent from '../components/ListEmptyComponent';
 import ListHeaderComponent from '../components/ListHeaderComponent';
 import OfferItem from '../components/OfferItem';
@@ -75,7 +76,17 @@ class MyOffersScreen extends React.Component {
             <ListEmptyComponent title="No offers yet" />
           )}
           data={dummyOffers}
-          renderItem={({ item }) => <OfferItem item={item} />}
+          renderItem={({ item }) => (
+            <OfferItem
+              item={item}
+              onPress={() =>
+                this.props.navigation.navigate(
+                  ScreenNames.OFFER_DETAILS_SCREEN,
+                  { item: item }
+                )
+              }
+            />
+          )}
         />
         <View style={styles.totalContainer}>
           <Text>Total</Text>
