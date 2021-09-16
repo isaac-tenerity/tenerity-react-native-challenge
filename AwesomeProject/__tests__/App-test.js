@@ -1,14 +1,25 @@
-/**
- * @format
- */
+import {
+  GET_OFFERS_URL,
+  GET_USER_OFFER_URL,
+} from '../src/application/utils/Urls';
+import { getOffersRequest } from '../src/infrastructure/api/user.api';
 
-import 'react-native';
-import React from 'react';
-import App from '../App';
+test('returns get user offers url correctly', () => {
+  const ids = [1, 2, 3];
+  expect(GET_USER_OFFER_URL(ids)).toBe('/offers?id=1&id=2&id=3');
+});
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-it('renders correctly', () => {
-  renderer.create(<App />);
+test('get all offers correctly', async () => {
+  const allOffers = await getOffersRequest(GET_OFFERS_URL);
+  expect(Array.isArray(allOffers?.data)).toBe(true);
+  expect(allOffers?.data[0]).toMatchObject({
+    id: 1,
+    offerType: 'travel',
+    title: 'New York City break',
+    description:
+      'Praesentium similique deserunt iste ute. Neque voluptate aspernatur aut nesciunt adipisci.',
+    tagIds: [1, 3],
+    image: 'https://picsum.photos/id/274/400/200',
+    price: 249.99,
+  });
 });
