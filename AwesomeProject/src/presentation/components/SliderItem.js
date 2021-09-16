@@ -4,34 +4,48 @@ import { screen, text } from '../../application/common/sizes';
 import { colors } from '../../application/common/colors';
 import TagItem from './TagItem';
 import Button from '../../infrastructure/globalComponents/Button';
-const SliderItem = ({ item }) => {
+import { attachTagsToOffer } from '../../application/filters/offers.filter';
+
+const SliderItem = ({ item, tags }) => {
+  // this should be done by joining the two tables (offers and tags) instead of doing this
+  let offer = attachTagsToOffer(item, tags);
+  console.log({ tags });
   return (
     <View style={styles.container}>
       <ImageBackground
         resizeMode="cover"
         imageStyle={styles.image}
-        source={{ uri: item.image }}
+        source={{ uri: offer.image }}
         style={styles.imageBackground}
       >
         <View>
-          <Text style={styles.titleText}>{item.title}</Text>
-          <Text style={styles.descriptionText}>{item.description}</Text>
-          <Text style={styles.priceText}>{item.price}$</Text>
+          {offer?.promoted && (
+            <View style={styles.promotedTagContainer}>
+              <TagItem title="promoted" />
+            </View>
+          )}
+          <Text style={styles.titleText}>{offer.title}</Text>
+          <Text style={styles.descriptionText}>{offer.description}</Text>
+          <Text style={styles.priceText}>{offer.price}$</Text>
           <View style={styles.tagContainer}>
-            <TagItem title="expires soon" />
-            <TagItem title="expires soon" />
-            <TagItem title="expires soon" />
+            {tags.length > 0 &&
+              offer?.offerTags.map(tag => (
+                <TagItem key={tag?.id} title={tag?.text} />
+              ))}
           </View>
         </View>
-
         <Button title="add to my offers" />
       </ImageBackground>
     </View>
   );
 };
 const styles = StyleSheet.create({
+  promotedTagContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   container: {
-    height: screen.HEIGHT - 150,
+    height: screen.HEIGHT - 220,
     width: screen.WIDTH - 40,
   },
   image: {

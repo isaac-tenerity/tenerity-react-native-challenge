@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: colors.danger,
+    textAlign: 'center',
   },
 });
 

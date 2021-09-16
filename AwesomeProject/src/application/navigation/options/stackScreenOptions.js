@@ -2,9 +2,9 @@ import { colors } from '../../common/colors';
 
 const stackScreenOptions = profileType => {
   return {
-    headerTintColor: colors.secondary,
+    headerTintColor: colors.primary,
     headerStyle: {
-      backgroundColor: colors.primary,
+      backgroundColor: colors.secondary,
       shadowRadius: 0,
       shadowOffset: {
         height: 0,
