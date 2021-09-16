@@ -3,15 +3,27 @@ import { SafeAreaView, Image, View, Text, StyleSheet } from 'react-native';
 import Logo from '../../application/assets/logo.png';
 import { text } from '../../application/common/sizes';
 import Button from '../../infrastructure/globalComponents/Button';
+import Error from '../../infrastructure/globalComponents/Error';
 import Input from '../../infrastructure/globalComponents/Input';
+import ReduxContainer from '../containers/ReduxContainer';
 
 class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      username: '',
+    };
   }
 
+  onChangeText = (field, value) => {
+    this.setState({
+      [field]: value,
+    });
+  };
+
   render() {
+    let { registerUser, registrationError, isRegisterLoading } = this.props;
+    let { username } = this.state;
     return (
       <SafeAreaView style={styles.mainContainer}>
         <Text style={styles.welcomeText}>Welcome To</Text>
@@ -19,8 +31,19 @@ class WelcomeScreen extends React.Component {
           <Image source={Logo} style={styles.logo} resizeMode="contain" />
         </View>
         <View style={styles.formContainer}>
-          <Input placeholder="your name" />
-          <Button title="start discovering" />
+          <View>
+            <Input
+              placeholder="your name"
+              onChangeText={username => this.onChangeText('username', username)}
+            />
+            {registrationError && <Error errorMessage={registrationError} />}
+          </View>
+          <Button
+            title="start discovering"
+            isButtonLoading={isRegisterLoading}
+            isDisabled={username === ''}
+            onPress={() => registerUser(username)}
+          />
         </View>
       </SafeAreaView>
     );
@@ -51,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default ReduxContainer(WelcomeScreen);

@@ -13,7 +13,7 @@ const Button = ({ title, onPress, isButtonLoading, isDisabled }) => {
     <TouchableOpacity
       disabled={isButtonLoading || isDisabled}
       onPress={onPress}
-      style={styles.button}
+      style={styles.button(isDisabled)}
     >
       {isButtonLoading ? (
         <ActivityIndicator size="small" color={colors.secondary} />
@@ -25,14 +25,16 @@ const Button = ({ title, onPress, isButtonLoading, isDisabled }) => {
 };
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.primary,
-    borderRadius: 10,
-    margin: spacing.LARGE,
-    height: 40,
-    paddingHorizontal: spacing.NORMAL,
-    justifyContent: 'center',
-    alignItems: 'center',
+  button: isDisabled => {
+    return {
+      backgroundColor: isDisabled ? colors.gray : colors.primary,
+      borderRadius: 10,
+      margin: spacing.LARGE,
+      height: 40,
+      paddingHorizontal: spacing.NORMAL,
+      justifyContent: 'center',
+      alignItems: 'center',
+    };
   },
   buttonTitle: {
     fontSize: text.NORMAL,
