@@ -25,8 +25,10 @@ class OfferDetailsScreen extends React.Component {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={['first', 'second']}
-            renderItem={({ title }) => <TagItem title="title" />}
+            data={item?.offerTags}
+            renderItem={tag => {
+              return <TagItem title={tag?.item?.text} key={tag?.item?.id} />;
+            }}
           />
           <View style={styles.titlePriceContainer}>
             <Text style={styles.titleText}>{item.title}</Text>

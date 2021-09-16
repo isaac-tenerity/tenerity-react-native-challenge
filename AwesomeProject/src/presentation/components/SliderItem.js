@@ -1,17 +1,28 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { screen, text } from '../../application/common/sizes';
 import { colors } from '../../application/common/colors';
 import TagItem from './TagItem';
 import Button from '../../infrastructure/globalComponents/Button';
 import { attachTagsToOffer } from '../../application/filters/offers.filter';
+import ScreenNames from '../../application/utils/ScreenNames';
 
-const SliderItem = ({ item, tags }) => {
+const SliderItem = ({ item, tags, navigation }) => {
   // this should be done by joining the two tables (offers and tags) instead of doing this
   let offer = attachTagsToOffer(item, tags);
-  console.log({ tags });
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate(ScreenNames.OFFER_DETAILS_SCREEN, { item: offer })
+      }
+    >
       <ImageBackground
         resizeMode="cover"
         imageStyle={styles.image}
@@ -28,15 +39,15 @@ const SliderItem = ({ item, tags }) => {
           <Text style={styles.descriptionText}>{offer.description}</Text>
           <Text style={styles.priceText}>{offer.price}$</Text>
           <View style={styles.tagContainer}>
-            {tags.length > 0 &&
-              offer?.offerTags.map(tag => (
-                <TagItem key={tag?.id} title={tag?.text} />
+            {offer?.offerTags.length > 0 &&
+              offer?.offerTags.map((tag, index) => (
+                <TagItem key={index} title={tag?.text} />
               ))}
           </View>
         </View>
         <Button title="add to my offers" />
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({

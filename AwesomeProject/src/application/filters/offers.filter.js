@@ -1,9 +1,9 @@
 const sortPromotedFirst = offers => {
-  return offers.reduce((acc, element) => {
-    if (element?.promoted) {
-      return [element, ...acc];
+  return offers.reduce((acc, offer) => {
+    if (offer?.promoted) {
+      return [offer, ...acc];
     }
-    return [...acc, element];
+    return [...acc, offer];
   }, []);
 };
 

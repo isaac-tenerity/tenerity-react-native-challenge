@@ -28,8 +28,9 @@ class HomeScreen extends React.Component {
   };
 
   render() {
-    let { offers, isGetOffersLoading, getOffersError, tags } = this.props;
-    console.log({ tags });
+    let { offers, isGetOffersLoading, getOffersError, tags, navigation } =
+      this.props;
+
     return isGetOffersLoading ? (
       <View style={styles.activityIndicatorContainer}>
         <ActivityIndicator size="large" color={colors.primary} />
@@ -41,7 +42,9 @@ class HomeScreen extends React.Component {
       </View>
     ) : (
       <ViewPagerComponent
-        renderItem={({ item }) => <SliderItem item={item} tags={tags} />}
+        renderItem={({ item }) => (
+          <SliderItem item={item} tags={tags} navigation={navigation} />
+        )}
         offers={offers}
         sliderWidth={screen.WIDTH}
         itemWidth={screen.WIDTH - 40}

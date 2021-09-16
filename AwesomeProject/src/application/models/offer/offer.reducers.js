@@ -19,7 +19,6 @@ const reducer = (state = initialState, action) => {
       });
     case GET_OFFER_REQUEST_SUCCESS:
       const { offers } = action.payload;
-      console.log({ offers });
       return Object.assign({}, state, {
         offers,
         isGetOffersLoading: false,

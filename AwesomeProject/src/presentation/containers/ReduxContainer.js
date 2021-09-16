@@ -32,11 +32,12 @@ const ReduxContainer = Component => {
         },
       });
     },
-    registerUser: username => {
+    registerUser: name => {
+      console.log({ name });
       dispatch({
         type: REGISTER_USER_REQUEST,
         payload: {
-          username,
+          name,
         },
       });
     },
