@@ -91,7 +91,7 @@ function* getSelectedOffers(action) {
     yield put({
       type: GET_SELECTED_OFFERS_FAILED,
       payload: {
-        error: `Could not get your offers because of (${error.message})`,
+        selectedOffersError: `Could not get your offers because of (${error.message})`,
       },
     });
   }

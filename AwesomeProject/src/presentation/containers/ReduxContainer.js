@@ -11,8 +11,14 @@ const ReduxContainer = Component => {
   // map state to props
   const mapStateTopProps = state => {
     let { isUserAuthenticated } = state.app;
-    let { user, registrationError, isRegisterLoading, selectedOffers } =
-      state.user;
+    let {
+      user,
+      registrationError,
+      isRegisterLoading,
+      selectedOffers,
+      isSelectedOffersLoading,
+      selectedOffersError,
+    } = state.user;
     let { offers, isGetOffersLoading, getOffersError } = state.offer;
     let { tags } = state.tag;
 
@@ -26,6 +32,8 @@ const ReduxContainer = Component => {
       getOffersError,
       tags,
       selectedOffers,
+      selectedOffersError,
+      isSelectedOffersLoading,
     };
   };
   // map dispatch to props

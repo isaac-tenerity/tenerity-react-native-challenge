@@ -54,6 +54,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isSelectedOffersLoading: false,
         selectedOffersError,
+        selectedOffers: [],
       });
     default:
       return state;
