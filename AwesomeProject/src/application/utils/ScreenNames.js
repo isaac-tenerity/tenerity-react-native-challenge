@@ -1,0 +1,15 @@
+// screens
+const WELCOME_SCREEN = 'screens/WELCOME_SCREEN';
+const HOME_SCREEN = 'screens/HOME_SCREEN';
+const MY_OFFERS_SCREEN = 'screens/MY_OFFERS_SCREEN';
+const OFFER_DETAILS_SCREEN = 'screens/OFFER_DETAILS_SCREEN';
+// navigators
+const BOTTOM_TAB_BAR = 'navigators/BOTTOM_TAB_BAR';
+
+export default {
+  WELCOME_SCREEN,
+  HOME_SCREEN,
+  MY_OFFERS_SCREEN,
+  OFFER_DETAILS_SCREEN,
+  BOTTOM_TAB_BAR,
+};
