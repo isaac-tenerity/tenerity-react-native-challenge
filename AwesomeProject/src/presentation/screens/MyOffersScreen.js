@@ -29,16 +29,17 @@ class MyOffersScreen extends React.Component {
     return total;
   };
 
-  componentDidMount = () => {
+  onScreenLoad = () => {
     let {
       user: { id },
     } = this.props;
     this.props.getSelectedOffers(id);
+  };
+
+  componentDidMount = () => {
+    this.onScreenLoad();
     this.props.navigation.addListener('tabPress', () => {
-      let {
-        user: { id },
-      } = this.props;
-      this.props.getSelectedOffers(id);
+      this.onScreenLoad();
     });
   };
 

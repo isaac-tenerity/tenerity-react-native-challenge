@@ -12,12 +12,13 @@ import {
   HeaderRight,
   HeaderTitle,
 } from '../../infrastructure/globalComponents/AppHeader';
+import { navigationRef } from '../helpers/navigationHelper';
 
 const MainStack = createStackNavigator();
 
 const Router = ({ isUserAuthenticated, toggleIsUserAuthenticated }) => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <MainStack.Navigator screenOptions={stackScreenOptions}>
         {!isUserAuthenticated ? (
           <MainStack.Screen

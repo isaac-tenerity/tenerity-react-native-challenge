@@ -12,8 +12,9 @@ import TagItem from './TagItem';
 import Button from '../../infrastructure/globalComponents/Button';
 import { attachTagsToOffer } from '../../application/filters/offers.filter';
 import ScreenNames from '../../application/utils/ScreenNames';
+import ReduxContainer from '../containers/ReduxContainer';
 
-const SliderItem = ({ item, tags, navigation }) => {
+const SliderItem = ({ item, tags, navigation, addUserOffer, user }) => {
   // this should be done by joining the two tables (offers and tags) instead of doing this
   let offer = attachTagsToOffer(item, tags);
   return (
@@ -45,7 +46,10 @@ const SliderItem = ({ item, tags, navigation }) => {
               ))}
           </View>
         </View>
-        <Button title="add to my offers" />
+        <Button
+          title="add to my offers"
+          onPress={() => addUserOffer(user, offer?.id)}
+        />
       </ImageBackground>
     </TouchableOpacity>
   );
@@ -96,4 +100,4 @@ const styles = StyleSheet.create({
     fontSize: text.DESCRIPTION,
   },
 });
-export default SliderItem;
+export default ReduxContainer(SliderItem);

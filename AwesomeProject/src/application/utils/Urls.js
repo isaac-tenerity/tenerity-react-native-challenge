@@ -22,7 +22,6 @@ const GET_OFFER_TAGS_URL = ids => {
   );
   return `/tags?${idsToUrl}`;
 };
-const TOGGLE_USER_OFFERS_URL = id => `/users/${id}`;
 
 export {
   SERVER_URL,
@@ -30,7 +29,6 @@ export {
   GET_USER_URL,
   GET_OFFERS_URL,
   GET_USER_OFFER_URL,
-  TOGGLE_USER_OFFERS_URL,
   GET_TAGS_URL,
   GET_OFFER_TAGS_URL,
 };

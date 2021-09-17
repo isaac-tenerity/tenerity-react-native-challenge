@@ -13,13 +13,15 @@ class HomeScreen extends React.Component {
     this.state = {};
   }
 
-  componentDidMount = () => {
+  onScreenLoad = () => {
     this.props.getOffers();
     this.props.getTags();
+  };
+  componentDidMount = () => {
+    this.onScreenLoad();
     // to make sure the user has the latest offers
     this.props.navigation.addListener('tabPress', () => {
-      this.props.getOffers();
-      this.props.getTags();
+      this.onScreenLoad();
     });
   };
 

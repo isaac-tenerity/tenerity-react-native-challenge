@@ -1,4 +1,7 @@
 import {
+  ADD_USER_OFFER_REQUEST_FAILED,
+  ADD_USER_OFFER_REQUEST_START,
+  ADD_USER_OFFER_REQUEST_SUCCESS,
   GET_SELECTED_OFFERS_FAILED,
   GET_SELECTED_OFFERS_START,
   GET_SELECTED_OFFERS_SUCCESS,
@@ -15,6 +18,8 @@ const initialState = {
   isSelectedOffersLoading: false,
   selectedOffers: [],
   selectedOffersError: null,
+
+  isAddOfferLoading: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -54,6 +59,23 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isSelectedOffersLoading: false,
         selectedOffersError,
+        selectedOffers: [],
+      });
+    // add new offer to the selected offers
+    case ADD_USER_OFFER_REQUEST_START:
+      return Object.assign({}, state, {
+        isAddOfferLoading: true,
+        selectedOffersError: null,
+      });
+    case ADD_USER_OFFER_REQUEST_SUCCESS:
+      let { newSelectedOffers } = action.payload;
+      return Object.assign({}, state, {
+        isAddOfferLoading: false,
+        selectedOffers: newSelectedOffers,
+      });
+    case ADD_USER_OFFER_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        isAddOfferLoading: false,
         selectedOffers: [],
       });
     default:

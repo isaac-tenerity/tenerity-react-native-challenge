@@ -26,7 +26,6 @@ class WelcomeScreen extends React.Component {
     let { username } = this.state;
     return (
       <SafeAreaView style={styles.mainContainer}>
-        <Text style={styles.welcomeText}>Welcome To</Text>
         <View style={styles.logoContainer}>
           <Image source={Logo} style={styles.logo} resizeMode="contain" />
         </View>
@@ -53,11 +52,6 @@ class WelcomeScreen extends React.Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-  },
-  welcomeText: {
-    flex: 0.1,
-    textAlign: 'center',
-    fontSize: text.TITLE,
   },
   logo: {
     height: null,

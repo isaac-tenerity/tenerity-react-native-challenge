@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { colors } from '../../application/common/colors';
 import { spacing, text } from '../../application/common/sizes';
-import TagItem from './TagItem';
+import Icon from '../../infrastructure/globalComponents/Icon';
 
 const OfferItem = ({ item, onPress }) => {
   return (
@@ -15,6 +15,14 @@ const OfferItem = ({ item, onPress }) => {
           <Text style={styles.titleText}>{item.title}</Text>
           <Text style={styles.priceText}>{item.price}$</Text>
         </View>
+        <TouchableOpacity style={styles.removeIconContainer}>
+          <Icon
+            type={'ionicon'}
+            name={'trash'}
+            size={text.NORMAL}
+            color={colors.danger}
+          />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -50,6 +58,10 @@ const styles = StyleSheet.create({
     flex: 0.7,
     padding: spacing.SMALL,
     justifyContent: 'space-between',
+  },
+  removeIconContainer: {
+    padding: spacing.SMALL,
+    height: 30,
   },
 });
 

@@ -1,7 +1,7 @@
 import { TOGGLE_IS_USER_AUTHENTICATED_SUCCESS } from './app.actions';
 
 const initialState = {
-  isUserAuthenticated: true,
+  isUserAuthenticated: false,
 };
 
 const reducer = (state = initialState, action) => {

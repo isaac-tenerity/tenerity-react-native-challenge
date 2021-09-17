@@ -3,6 +3,7 @@ import { TOGGLE_IS_USER_AUTHENTICATED } from '../../application/models/app/app.a
 import { GET_OFFER_REQUEST } from '../../application/models/offer/offer.actions';
 import { GET_TAGS_REQUEST } from '../../application/models/tag/tag.actions';
 import {
+  ADD_USER_OFFER_REQUEST,
   GET_SELECTED_OFFERS,
   REGISTER_USER_REQUEST,
 } from '../../application/models/user/user.actions';
@@ -69,6 +70,16 @@ const ReduxContainer = Component => {
         type: GET_SELECTED_OFFERS,
         payload: {
           id,
+        },
+      });
+    },
+    addUserOffer: (user, offerId) => {
+      console.log({ user });
+      dispatch({
+        type: ADD_USER_OFFER_REQUEST,
+        payload: {
+          user,
+          offerId,
         },
       });
     },
