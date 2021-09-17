@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { colors } from '../../application/common/colors';

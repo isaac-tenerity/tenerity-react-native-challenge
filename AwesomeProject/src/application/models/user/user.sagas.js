@@ -197,40 +197,86 @@ function* addUserOffer(action) {
 function* removeUserOffer(action) {
   try {
     yield put({ type: REMOVE_USER_OFFER_REQUEST_START });
-    let { id } = action.payload;
+    console.log(action.payload.user);
+    let {
+      user: { id, name },
+      offerId,
+    } = action.payload;
     // get user info
     let getUserInfoResponse = yield call(getUserInfoRequest, id);
     // get user selected offers
     let { selectedOffers } = getUserInfoResponse?.data;
+    // check if offer already exists
+    let offerExistsIndex = selectedOffers.findIndex(id => id === offerId);
+    if (offerExistsIndex === -1) {
+      alert(
+        'We had an issue removing this item from your list, please try again later'
+      );
+      return;
+    }
 
-    if (selectedOffers.length > 0) {
+    // add offer id to the selected offers
+    let newSelectedOffers = selectedOffers.filter(item => {
+      return item !== offerId;
+    });
+    // add the offer to the selected offers
+    yield call(addOfferRequest, id, {
+      id,
+      name,
+      selectedOffers: newSelectedOffers,
+    });
+    // get the full details of the offer newSelectedOffers
+    if (newSelectedOffers.length > 0) {
       // i would do this on the backend side with joining the user table with the offers
       let getSelectedOffersResponse = yield call(
         getUserSelectedOffersRequest,
-        selectedOffers
+        newSelectedOffers
+      );
+      Alert.alert(
+        'Successfully removed',
+        'The offer was removed successfully',
+        [
+          {
+            text: 'Ok',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+        ]
       );
       yield put({
         type: REMOVE_USER_OFFER_REQUEST_SUCCESS,
         payload: {
-          selectedOffers: getSelectedOffersResponse?.data,
+          newSelectedOffersAfterDelete: getSelectedOffersResponse?.data,
         },
       });
     } else {
+      Alert.alert(
+        'Add Offer',
+        'Your offers list is empty you want to add new offers?',
+        [
+          {
+            text: 'Ok',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'Explore our offers',
+            onPress: () => navigationHelper.navigate(ScreenNames.HOME_SCREEN),
+          },
+        ]
+      );
       yield put({
-        type: ADD_USER_OFFER_REQUEST_FAILED,
+        type: REMOVE_USER_OFFER_REQUEST_SUCCESS,
         payload: {
-          selectedOffers: [],
+          newSelectedOffersAfterDelete: [],
         },
       });
     }
   } catch (error) {
     console.log(error);
-    yield put({
-      type: REMOVE_USER_OFFER_REQUEST_FAILED,
-      payload: {
-        selectedOffersError: `Could not get your offers because of (${error.message})`,
-      },
-    });
+    alert(
+      `Could not remove this offer from your offers because of (${error.message})`
+    );
   }
 }
 

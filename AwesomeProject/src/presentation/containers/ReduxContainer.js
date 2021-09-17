@@ -6,6 +6,7 @@ import {
   ADD_USER_OFFER_REQUEST,
   GET_SELECTED_OFFERS,
   REGISTER_USER_REQUEST,
+  REMOVE_USER_OFFER_REQUEST,
 } from '../../application/models/user/user.actions';
 
 const ReduxContainer = Component => {
@@ -77,6 +78,16 @@ const ReduxContainer = Component => {
       console.log({ user });
       dispatch({
         type: ADD_USER_OFFER_REQUEST,
+        payload: {
+          user,
+          offerId,
+        },
+      });
+    },
+    removeUserOffer: (user, offerId) => {
+      console.log({ user });
+      dispatch({
+        type: REMOVE_USER_OFFER_REQUEST,
         payload: {
           user,
           offerId,

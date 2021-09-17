@@ -8,6 +8,9 @@ import {
   REGISTER_USER_REQUEST_FAILED,
   REGISTER_USER_REQUEST_START,
   REGISTER_USER_REQUEST_SUCCESS,
+  REMOVE_USER_OFFER_REQUEST_FAILED,
+  REMOVE_USER_OFFER_REQUEST_START,
+  REMOVE_USER_OFFER_REQUEST_SUCCESS,
 } from './user.actions';
 
 const initialState = {
@@ -74,6 +77,23 @@ const reducer = (state = initialState, action) => {
         selectedOffers: newSelectedOffers,
       });
     case ADD_USER_OFFER_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        isAddOfferLoading: false,
+        selectedOffers: [],
+      });
+    // remove offer from the selected offers
+    case REMOVE_USER_OFFER_REQUEST_START:
+      return Object.assign({}, state, {
+        isAddOfferLoading: true,
+        selectedOffersError: null,
+      });
+    case REMOVE_USER_OFFER_REQUEST_SUCCESS:
+      let { newSelectedOffersAfterDelete } = action.payload;
+      return Object.assign({}, state, {
+        isAddOfferLoading: false,
+        selectedOffers: newSelectedOffersAfterDelete,
+      });
+    case REMOVE_USER_OFFER_REQUEST_FAILED:
       return Object.assign({}, state, {
         isAddOfferLoading: false,
         selectedOffers: [],
