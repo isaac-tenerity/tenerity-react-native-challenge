@@ -1,5 +1,6 @@
 import React from 'react';
 import Carousel from 'react-native-snap-carousel';
+import { StyleSheet } from 'react-native';
 
 const ViewPagerComponent = props => {
   return (
@@ -12,17 +13,24 @@ const ViewPagerComponent = props => {
       hasParallaxImages={true}
       inactiveSlideScale={0.94}
       inactiveSlideOpacity={0.7}
-      containerCustomStyle={{
-        overflow: 'visible',
-      }}
+      containerCustomStyle={styles.containerCustomStyle}
+      contentContainerCustomStyle={styles.contentContainerCustomStyle}
       loop={true}
       loopClonesPerSide={2}
-      autoplay={false}
+      autoplay={true}
       autoplayDelay={500}
       autoplayInterval={3000}
-      onSnapToItem={props.slider1ActiveSlide}
     />
   );
 };
 
+const styles = StyleSheet.create({
+  containerCustomStyle: {
+    overflow: 'visible',
+  },
+  contentContainerCustomStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 export default ViewPagerComponent;

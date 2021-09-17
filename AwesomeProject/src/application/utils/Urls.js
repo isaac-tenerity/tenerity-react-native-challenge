@@ -1,7 +1,7 @@
 const SERVER_URL = 'http://localhost:3000';
 
-const REGISTER_USER_URL = '/user';
-const GET_USER_URL = id => `/user/${id}`;
+const REGISTER_USER_URL = '/users';
+const GET_USER_URL = id => `/users/${id}`;
 
 const GET_OFFERS_URL = '/offers';
 const GET_USER_OFFER_URL = ids => {
@@ -22,7 +22,6 @@ const GET_OFFER_TAGS_URL = ids => {
   );
   return `/tags?${idsToUrl}`;
 };
-const TOGGLE_USER_OFFERS_URL = id => `/user/${id}`;
 
 export {
   SERVER_URL,
@@ -30,8 +29,6 @@ export {
   GET_USER_URL,
   GET_OFFERS_URL,
   GET_USER_OFFER_URL,
-  TOGGLE_USER_OFFERS_URL,
-  REMOVE_USER_OFFER_URL,
   GET_TAGS_URL,
   GET_OFFER_TAGS_URL,
 };
