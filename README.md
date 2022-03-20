@@ -6,6 +6,14 @@
 		alt="The Lounge"
 		src="./assets/tenerity-logo.png"
   >
+
+  	<h1>Challenge Completed</h1>
+	<hr/>
+	<div>Using typescript and recoil </div>
+	<hr/>
+	<div>App preview</div>
+	<img src="https://user-images.githubusercontent.com/39961439/159190128-5fc636e3-dc9d-44f6-b903-e211ba43335c.gif"
+  	height="500px"/>
 </div>
 
 # Tenerity Mobile Technical Challenges
