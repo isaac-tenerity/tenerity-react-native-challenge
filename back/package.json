@@ -10,7 +10,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "serve": "json-server --watch db.json"
+    "serve": "npx json-server --watch db.json"
   },
   "dependencies": {
     "json-server": "^0.16.3"

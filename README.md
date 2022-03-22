@@ -8,6 +8,14 @@
   >
 </div>
 
+<h1>Challenge Completed</h1>
+	<hr/>
+	<div>Using typescript and recoil </div>
+	<hr/>
+	<div>App preview</div>
+	<img src="https://user-images.githubusercontent.com/39961439/159437543-265ae541-64be-499a-bc8a-c5d1150d2c59.gif"
+  	height="500px"/>
+
 # Tenerity Mobile Technical Challenges
 \* To start please fork this repository
 
