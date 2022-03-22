@@ -1,17 +1,35 @@
 import * as React from 'react';
-import { Text, View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, Animated, Dimensions } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import { OffersType } from '../types';
 import {styles as wrapperStyle} from './PlaceHolderComponent';
+const windowWidth = Dimensions.get('window').width;
 
 type ListCardProps = {
     item: OffersType,
     selected:boolean
-    offerSelectHandler:Function
+    offerSelectHandler:Function,
+    translateX:Animated.AnimatedInterpolation,
+    scale:Animated.AnimatedInterpolation,
+    opacity:Animated.AnimatedInterpolation,
 }
 
-const ListCard = ({item, selected, offerSelectHandler}: ListCardProps) => {
+const ListCard = ({item, selected, offerSelectHandler, translateX, scale, opacity}: ListCardProps) => {
   return (
-    <View style={wrapperStyle.contentWrapper} >
+    <Animated.View style={
+        { 
+          position:"absolute",
+          left: -(windowWidth * 0.8)/1.7,
+          opacity,
+          transform: [
+            {
+              translateX,
+            },
+            { scale },
+          ],
+        }}
+    >
+      <View style={wrapperStyle.contentWrapper}>
         <Image 
           source={{uri:item.image}} 
           style={styles.imageStyle} 
@@ -32,16 +50,22 @@ const ListCard = ({item, selected, offerSelectHandler}: ListCardProps) => {
           <Text style={styles.descriptionTextStyle}>{item.description?.substring(30)}</Text>
         </View>
 
-        <TouchableOpacity 
+        <View style={styles.bunttonContainer} >
+          <Text style={[styles.titleStyle, {color:"#70aa85", fontSize:20}]} >
+            {`$ ${item.price}`}
+          </Text>
+
+          <TouchableOpacity 
             style={[styles.buttonStyle, {backgroundColor:(selected)?"#ce7575" : "#6dbc92"}]} 
             onPress={()=>offerSelectHandler(item.id)}
           >
               <Text style={[styles.buttonTextStyle, {color:(selected)? "white": "#2b2a2a"}]} >
                   {(selected)? "#": "+"}
               </Text>
-        </TouchableOpacity>
-    
-    </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Animated.View>
   );
 };
 
@@ -84,6 +108,13 @@ const styles = StyleSheet.create({
       fontSize:13, 
       fontWeight: "bold", 
       color:"#a5a4a4"
+    },
+    bunttonContainer:{
+      width:"100%", 
+      height:50, 
+      flexDirection:"row", 
+      justifyContent:"space-evenly", 
+      alignItems:"center"
     },
     buttonStyle:{
       width:40, 

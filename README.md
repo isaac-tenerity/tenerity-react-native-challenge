@@ -13,7 +13,7 @@
 	<div>Using typescript and recoil </div>
 	<hr/>
 	<div>App preview</div>
-	<img src="https://user-images.githubusercontent.com/39961439/159190128-5fc636e3-dc9d-44f6-b903-e211ba43335c.gif"
+	<img src="https://user-images.githubusercontent.com/39961439/159437543-265ae541-64be-499a-bc8a-c5d1150d2c59.gif"
   	height="500px"/>
 
 # Tenerity Mobile Technical Challenges

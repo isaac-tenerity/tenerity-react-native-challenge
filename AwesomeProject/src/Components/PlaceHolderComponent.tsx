@@ -16,7 +16,7 @@ interface PlaceHolderComponentProps {}
 
 const PlaceHolderComponent = (props: PlaceHolderComponentProps) => {
   return (
-    <View style={[styles.contentWrapper, {height:windowHeight*0.4, flex:0.6}]}>
+    <View style={[styles.contentWrapper, {height:windowHeight*0.5, position:"absolute", top:50}]}>
       
     <View style={[styles.placeholderWrapper, {paddingHorizontal:10}]}>
       <Placeholder
@@ -45,7 +45,6 @@ export default PlaceHolderComponent;
 
 export const styles = StyleSheet.create({
     contentWrapper: {
-      flex: 0.7,
       alignSelf:"center",
       justifyContent: 'flex-start',
       alignItems: 'center',
