@@ -37,7 +37,7 @@ const HomeScreen = () => {
       </View>
       {error && (
         <View style={[styles.logoWrapper]}>
-          <Text>Error, please check your internet connection.</Text>
+          <Text>Error fetching data. Resorting to offline mode.</Text>
         </View>
       )}
       <Animated.FlatList
@@ -63,7 +63,7 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#e1e1e1',
+    backgroundColor: Colors.safeAreaBg,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -94,24 +94,24 @@ const styles = StyleSheet.create({
   },
   logoWrapper: {
     borderRadius: 20,
-    padding: 10,
+    padding: 7,
     paddingHorizontal: 30,
     backgroundColor: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
     marginHorizontal: 20,
     marginTop: Platform.OS === 'android' ? 40 : 0,
   },
   logoImage: {
-    width: 158,
-    height: 55,
+    width: 124,
+    height: 43,
   },
   placeholderWrapper: {
     marginTop: 32,
   },
   placeholderTitle: {
-    fontSize: 24,
+    fontSize: 23,
     alignSelf: 'flex-start',
     marginBottom: 12,
   },

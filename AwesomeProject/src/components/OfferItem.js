@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     color: 'white',
     textTransform: 'uppercase',
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: '800',
     letterSpacing: 2,
     marginBottom: 10,
@@ -83,11 +83,11 @@ const styles = StyleSheet.create({
   description: {
     color: '#ccc',
     fontWeight: '600',
-    textAlign: 'left',
+    textAlign: 'justify',
     width: width * 0.75,
     marginRight: 10,
-    fontSize: 16,
-    lineHeight: 16 * 1.5,
+    fontSize: 15.5,
+    lineHeight: 16 * 1.4,
   },
   offerImage: {
     width: imageW,

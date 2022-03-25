@@ -5,4 +5,5 @@ export default {
   gray: '#9ca5ab',
   black: '#000',
   tomato: 'tomato',
+  safeAreaBg: '#e1e1e1',
 };
