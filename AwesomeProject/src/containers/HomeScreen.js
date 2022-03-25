@@ -8,6 +8,8 @@ import {
   Image,
   Dimensions,
   Text,
+  Animated,
+  ActivityIndicator,
 } from 'react-native';
 import {
   Placeholder,
@@ -18,40 +20,31 @@ import {
 } from 'rn-placeholder';
 
 import LogoImage from '@/assets/logo.png';
+import { OfferItem } from '@/components/OfferItem';
 
 const HomeScreen = () => {
   const { data: offers, isLoading, isSuccess } = useGetOffers();
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.contentWrapper}>
-        <View style={styles.logoWrapper}>
-          <Image source={LogoImage} style={styles.logoImage} />
-        </View>
-
-        <View style={styles.placeholderWrapper}>
-          <Text style={styles.placeholderTitle}>voluptas sed aut</Text>
-          <Placeholder
-            Animation={Fade}
-            Left={PlaceholderMedia}
-            Right={PlaceholderMedia}
-          >
-            <PlaceholderLine width={80} />
-            <PlaceholderLine />
-            <PlaceholderLine />
-            <PlaceholderLine width={60} />
-            <PlaceholderLine width={30} />
-          </Placeholder>
-        </View>
-
-        <View style={styles.placeholderWrapper}>
-          <Text style={styles.placeholderTitle}>nihil mollitia aut</Text>
-          <Placeholder Animation={Shine} Left={PlaceholderMedia}>
-            <PlaceholderLine />
-            <PlaceholderLine width={90} />
-          </Placeholder>
-        </View>
+      <StatusBar hidden />
+      <View style={[styles.logoWrapper]}>
+        <Image source={require('@/assets/logo.png')} style={styles.logoImage} />
       </View>
+      <Animated.FlatList
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: true }
+        )}
+        data={offers || []}
+        keyExtractor={(_, index) => index.toString()}
+        horizontal
+        pagingEnabled
+        renderItem={({ item, index }) => {
+          return <OfferItem {...item} index={index} scrollXP={scrollX} />;
+        }}
+      />
     </SafeAreaView>
   );
 };
