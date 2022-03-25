@@ -10,11 +10,13 @@ import {
   Text,
   Animated,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 
 import LogoImage from '@/assets/logo.png';
 import { OfferItem } from '@/components/OfferItem';
-const { width, height } = Dimensions.get('screen');
+import BlurredBGImage from '@/components/BlurredBGImage';
+import Colors from '@/constants/Colors';
 const HomeScreen = () => {
   const { data: offers, isLoading, error, isSuccess } = useGetOffers();
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -28,30 +30,8 @@ const HomeScreen = () => {
   }
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar hidden />
-      <View style={[StyleSheet.absoluteFillObject]}>
-        {offers &&
-          offers.map((offer, index) => {
-            const image = offer.image;
-            const inputRange = [
-              (index - 1) * width,
-              index * width,
-              (index + 1) * width,
-            ];
-            const opacity = scrollX.interpolate({
-              inputRange,
-              outputRange: [0, 1, 0],
-            });
-            return (
-              <Animated.Image
-                key={`image-${index}`}
-                source={{ uri: image }}
-                style={[StyleSheet.absoluteFillObject, { opacity }]}
-                blurRadius={14}
-              />
-            );
-          })}
-      </View>
+      <StatusBar translucent backgroundColor="transparent" />
+      <BlurredBGImage offers={offers} scrollX={scrollX} />
       <View style={[styles.logoWrapper]}>
         <Image source={LogoImage} style={styles.logoImage} />
       </View>
@@ -113,12 +93,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   logoWrapper: {
-    width: '100%',
-    display: 'flex',
+    borderRadius: 20,
+    padding: 10,
+    paddingHorizontal: 30,
+    backgroundColor: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
-    marginTop: 4,
+    marginBottom: 10,
+    marginHorizontal: 20,
+    marginTop: Platform.OS === 'android' ? 40 : 0,
   },
   logoImage: {
     width: 158,

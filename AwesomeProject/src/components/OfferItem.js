@@ -1,3 +1,4 @@
+import Colors from '@/constants/Colors';
 import * as React from 'react';
 import { Animated, Dimensions, View, StyleSheet } from 'react-native';
 
@@ -23,7 +24,7 @@ export const OfferItem = ({ image, title, description, scrollXP, index }) => {
   });
 
   return (
-    <View style={styles.itemStyle}>
+    <View style={[styles.itemStyle, styles.offerImageShadow]}>
       <Animated.Image source={{ uri: image }} style={styles.offerImage} />
       <View style={styles.textContainer}>
         <Animated.Text
@@ -94,5 +95,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     resizeMode: 'cover',
     borderRadius: 16,
+  },
+  offerImageShadow: {
+    shadowColor: Colors.black,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowRadius: 20,
   },
 });
