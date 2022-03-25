@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { getAllOffers } from '../src/api/ApiQueries';
+import { getAllOffers } from '@/api/ApiQueries';
 
 const getOffers = async () => {
   const { data } = await getAllOffers();

@@ -1,3 +1,4 @@
+import useGetOffers from '@/hooks/useApiOffers';
 import React from 'react';
 import {
   SafeAreaView,
@@ -16,9 +17,10 @@ import {
   Fade,
 } from 'rn-placeholder';
 
-import LogoImage from '../assets/logo.png';
+import LogoImage from '@/assets/logo.png';
 
 const HomeScreen = () => {
+  const { data: offers, isLoading, isSuccess } = useGetOffers();
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="light-content" />
