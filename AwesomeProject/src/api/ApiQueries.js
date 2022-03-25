@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Config } from '@/constants/Config';
 export const apiClient = axios.create({
-  baseURL: Config.API_URL,
+  baseURL: Config.API_URL_DEVICE,
 });
 
 /**

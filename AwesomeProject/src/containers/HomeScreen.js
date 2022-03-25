@@ -11,17 +11,10 @@ import {
   Animated,
   ActivityIndicator,
 } from 'react-native';
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  Shine,
-  Fade,
-} from 'rn-placeholder';
 
 import LogoImage from '@/assets/logo.png';
 import { OfferItem } from '@/components/OfferItem';
-
+const { width, height } = Dimensions.get('screen');
 const HomeScreen = () => {
   const { data: offers, isLoading, error, isSuccess } = useGetOffers();
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -36,8 +29,31 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar hidden />
+      <View style={[StyleSheet.absoluteFillObject]}>
+        {offers &&
+          offers.map((offer, index) => {
+            const image = offer.image;
+            const inputRange = [
+              (index - 1) * width,
+              index * width,
+              (index + 1) * width,
+            ];
+            const opacity = scrollX.interpolate({
+              inputRange,
+              outputRange: [0, 1, 0],
+            });
+            return (
+              <Animated.Image
+                key={`image-${index}`}
+                source={{ uri: image }}
+                style={[StyleSheet.absoluteFillObject, { opacity }]}
+                blurRadius={14}
+              />
+            );
+          })}
+      </View>
       <View style={[styles.logoWrapper]}>
-        <Image source={require('@/assets/logo.png')} style={styles.logoImage} />
+        <Image source={LogoImage} style={styles.logoImage} />
       </View>
       {error && (
         <View style={[styles.logoWrapper]}>
@@ -102,9 +118,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
+    marginTop: 4,
   },
   logoImage: {
-    width: 160,
+    width: 158,
     height: 55,
   },
   placeholderWrapper: {
