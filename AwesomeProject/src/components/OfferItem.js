@@ -24,23 +24,13 @@ export const OfferItem = ({ image, title, description, scrollXP, index }) => {
 
   return (
     <View style={styles.itemStyle}>
-      <Animated.Image
-        source={{ uri: image }}
-        style={{
-          width: imageW,
-          height: imageH,
-          alignSelf: 'center',
-          resizeMode: 'cover',
-          borderRadius: 16,
-        }}
-      />
+      <Animated.Image source={{ uri: image }} style={styles.offerImage} />
       <View style={styles.textContainer}>
         <Animated.Text
           style={[
             styles.heading,
             {
               opacity,
-              // transform: [{ translateX: translateXHeading }],
             },
           ]}
         >
@@ -97,5 +87,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 16,
     lineHeight: 16 * 1.5,
+  },
+  offerImage: {
+    width: imageW,
+    height: imageH,
+    alignSelf: 'center',
+    resizeMode: 'cover',
+    borderRadius: 16,
   },
 });

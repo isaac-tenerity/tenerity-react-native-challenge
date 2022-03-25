@@ -23,15 +23,27 @@ import LogoImage from '@/assets/logo.png';
 import { OfferItem } from '@/components/OfferItem';
 
 const HomeScreen = () => {
-  const { data: offers, isLoading, isSuccess } = useGetOffers();
+  const { data: offers, isLoading, error, isSuccess } = useGetOffers();
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar hidden />
       <View style={[styles.logoWrapper]}>
         <Image source={require('@/assets/logo.png')} style={styles.logoImage} />
       </View>
+      {error && (
+        <View style={[styles.logoWrapper]}>
+          <Text>Error, please check your internet connection.</Text>
+        </View>
+      )}
       <Animated.FlatList
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
