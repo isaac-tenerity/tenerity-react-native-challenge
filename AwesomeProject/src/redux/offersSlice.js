@@ -6,15 +6,50 @@ import { createSlice } from '@reduxjs/toolkit';
 export const offersSlice = createSlice({
   name: 'offers',
   initialState: {
-    offerRecords: [],
+    allOffers: [],
+    myOffers: [],
   },
   reducers: {
-    setOfferRecords: (state, action) => {
-      state.offerRecords = action.payload;
+    setAllOffers: (state, action) => {
+      state.allOffers = action.payload;
+    },
+    setMyOffers: (state, action) => {
+      state.myOffers = action.payload;
+    },
+    addOfferToMyOffers: (state, action) => {
+      const newMyOffer = action.payload;
+      let myOffers = state.myOffers ? [...state.myOffers] : [];
+      if (newMyOffer?.id) {
+        let doesMyOfferExists = null;
+        if (myOffers?.length > 0) {
+          doesMyOfferExists = myOffers.find(
+            offer => offer.id === newMyOffer.id
+          );
+        }
+        if (!doesMyOfferExists) {
+          myOffers.push(newMyOffer);
+          state.myOffers = myOffers;
+        } else {
+          alert('offer already added');
+        }
+      }
+    },
+    removeOfferFromMyOffers: (state, action) => {
+      const newMyOfferId = action.payload;
+      let myOffers = state.myOffers ? [...state.myOffers] : [];
+      if (newMyOfferId && myOffers?.length > 0) {
+        const newMyOffers = myOffers.filter(offer => offer.id !== newMyOfferId);
+        state.myOffers = newMyOffers;
+      }
     },
   },
 });
 
 // ACTIONS export
-export const { setOfferRecords: addStep } = offersSlice.actions;
+export const {
+  setAllOffers,
+  addOfferToMyOffers,
+  removeOfferFromMyOffers,
+  setMyOffers,
+} = offersSlice.actions;
 export default offersSlice.reducer;

@@ -1,5 +1,5 @@
 import useGetOffers from '@/hooks/useApiOffers';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -18,8 +18,17 @@ import { OfferItem } from '@/components/OfferItem';
 import BlurredBGImage from '@/components/BlurredBGImage';
 import Colors from '@/constants/Colors';
 import useGetTags from '@/hooks/useApiTags';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addOfferToMyOffers,
+  removeOfferFromMyOffers,
+} from '@/redux/offersSlice';
+import { doesMyOfferExist } from '@/helpers/Offers';
 const HomeScreen = () => {
   const { data: offers, isLoading, error, isSuccess } = useGetOffers();
+  const dispatch = useDispatch();
+  const myOffers = useSelector(state => state.offers.myOffers);
+
   const {
     data: allTags,
     isLoading: isTagsQueryLoading,
@@ -27,6 +36,17 @@ const HomeScreen = () => {
     isSuccess: isTagsQuerySucces,
   } = useGetTags();
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  const handleAddOrRemoveOfferPress = useCallback(
+    offer => {
+      if (myOffers && offer?.id && doesMyOfferExist(offer.id, myOffers)) {
+        dispatch(removeOfferFromMyOffers(offer.id));
+      } else {
+        dispatch(addOfferToMyOffers(offer));
+      }
+    },
+    [dispatch, myOffers]
+  );
 
   if (isLoading) {
     return (
@@ -59,10 +79,13 @@ const HomeScreen = () => {
         renderItem={({ item, index }) => {
           return (
             <OfferItem
+              handleAddOrRemoveOfferPress={handleAddOrRemoveOfferPress}
               {...item}
+              offerRecord={item}
               index={index}
               scrollXP={scrollX}
               allTags={allTags}
+              doesOfferExistInMyOffers={doesMyOfferExist(item.id, myOffers)}
             />
           );
         }}

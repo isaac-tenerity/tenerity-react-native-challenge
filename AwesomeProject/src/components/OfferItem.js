@@ -1,6 +1,6 @@
 import Colors from '@/constants/Colors';
 import * as React from 'react';
-import { Button, Card, Chip } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 import { Animated, Dimensions, View, StyleSheet } from 'react-native';
 import Tags from '@/components/Tags';
@@ -20,6 +20,9 @@ export const OfferItem = ({
   allTags,
   price,
   offerType,
+  handleAddOrRemoveOfferPress,
+  offerRecord,
+  doesOfferExistInMyOffers,
 }) => {
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
   const opacityInputRange = [
@@ -64,18 +67,12 @@ export const OfferItem = ({
         </Animated.Text>
         <View style={styles.buyNowRow}>
           <Button
-            icon="checkbox-outline"
-            style={{
-              marginLeft: 10,
-              marginVertical: 10,
-              marginTop: 5,
-              backgroundColor: Colors.tomato,
-              borderRadius: 15,
-            }}
+            icon={'basket'}
+            style={styles.buyNowButton}
             mode="contained"
-            onPress={() => console.log('Pressed')}
+            onPress={() => handleAddOrRemoveOfferPress(offerRecord)}
           >
-            Buy Now
+            {doesOfferExistInMyOffers ? 'Remove Offer' : 'Add Offer'}
           </Button>
           <PriceAndOfferType
             price={price}
@@ -90,6 +87,13 @@ export const OfferItem = ({
 };
 
 const styles = StyleSheet.create({
+  buyNowButton: {
+    marginLeft: 10,
+    marginVertical: 10,
+    marginTop: 5,
+    backgroundColor: Colors.tomato,
+    borderRadius: 15,
+  },
   buyNowRow: {
     flexDirection: 'row',
   },
