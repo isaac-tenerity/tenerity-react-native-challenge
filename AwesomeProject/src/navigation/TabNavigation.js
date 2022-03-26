@@ -39,7 +39,7 @@ export default function TabNavigation() {
           headerShown: false,
           tabBarIcon: ({ focused }) => renderTabIcon(focused, route),
           tabBarActiveTintColor: Colors.tomato,
-          tabBarInactiveTintColor: Colors.gray,
+          tabBarInactiveTintColor: Colors.tomato,
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />

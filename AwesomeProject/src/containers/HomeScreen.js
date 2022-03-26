@@ -108,6 +108,8 @@ const styles = StyleSheet.create({
   },
   logoWrapper: {
     borderRadius: 20,
+    borderColor: Colors.tomato,
+    borderWidth: 2,
     padding: 7,
     paddingHorizontal: 30,
     backgroundColor: Colors.white,

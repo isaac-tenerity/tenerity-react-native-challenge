@@ -19,7 +19,6 @@ const Tags = ({ tagIds, allTags, opacity }) => {
             mode="outlined"
             selectedColor={Colors.tomato}
             selected
-            onPress={() => console.log('apple')}
           >
             {tag.text}
           </Chip>
@@ -33,10 +32,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
+    marginLeft: 10,
   },
   chip: {
-    marginTop: 15,
+    marginTop: 5,
     alignSelf: 'center',
     marginRight: 8,
   },

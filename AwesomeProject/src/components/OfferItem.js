@@ -1,9 +1,10 @@
 import Colors from '@/constants/Colors';
 import * as React from 'react';
-import { Card, Chip } from 'react-native-paper';
+import { Button, Card, Chip } from 'react-native-paper';
 
 import { Animated, Dimensions, View, StyleSheet } from 'react-native';
 import Tags from '@/components/Tags';
+import PriceAndOfferType from '@/components/PriceAndOfferType';
 
 const { width, height } = Dimensions.get('screen');
 const imageW = width * 0.88;
@@ -17,6 +18,8 @@ export const OfferItem = ({
   index,
   tagIds,
   allTags,
+  price,
+  offerType,
 }) => {
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
   const opacityInputRange = [
@@ -59,6 +62,27 @@ export const OfferItem = ({
         >
           {description}
         </Animated.Text>
+        <View style={styles.buyNowRow}>
+          <Button
+            icon="checkbox-outline"
+            style={{
+              marginLeft: 10,
+              marginVertical: 10,
+              marginTop: 5,
+              backgroundColor: Colors.tomato,
+              borderRadius: 15,
+            }}
+            mode="contained"
+            onPress={() => console.log('Pressed')}
+          >
+            Buy Now
+          </Button>
+          <PriceAndOfferType
+            price={price}
+            offerType={offerType}
+            opacity={opacity}
+          />
+        </View>
         <Tags tagIds={tagIds} allTags={allTags} opacity={opacity} />
       </View>
     </View>
@@ -66,6 +90,9 @@ export const OfferItem = ({
 };
 
 const styles = StyleSheet.create({
+  buyNowRow: {
+    flexDirection: 'row',
+  },
   itemStyle: {
     width,
     height,
