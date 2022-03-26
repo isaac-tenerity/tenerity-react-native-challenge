@@ -6,6 +6,6 @@ const getTags = async () => {
   return data;
 };
 
-const useGetTags = () => useQuery('offers', getTags);
+const useGetTags = () => useQuery('tags', getTags);
 
 export default useGetTags;

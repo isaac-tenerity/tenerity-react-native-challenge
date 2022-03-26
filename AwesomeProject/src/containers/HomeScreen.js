@@ -17,8 +17,15 @@ import LogoImage from '@/assets/logo.png';
 import { OfferItem } from '@/components/OfferItem';
 import BlurredBGImage from '@/components/BlurredBGImage';
 import Colors from '@/constants/Colors';
+import useGetTags from '@/hooks/useApiTags';
 const HomeScreen = () => {
   const { data: offers, isLoading, error, isSuccess } = useGetOffers();
+  const {
+    data: allTags,
+    isLoading: isTagsQueryLoading,
+    error: tagsError,
+    isSuccess: isTagsQuerySucces,
+  } = useGetTags();
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   if (isLoading) {
@@ -50,7 +57,14 @@ const HomeScreen = () => {
         horizontal
         pagingEnabled
         renderItem={({ item, index }) => {
-          return <OfferItem {...item} index={index} scrollXP={scrollX} />;
+          return (
+            <OfferItem
+              {...item}
+              index={index}
+              scrollXP={scrollX}
+              allTags={allTags}
+            />
+          );
         }}
       />
     </SafeAreaView>

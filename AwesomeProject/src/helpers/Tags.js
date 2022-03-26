@@ -5,6 +5,8 @@
  * @returns The Tag objects for an offer.
  */
 export const getOfferTags = (tagIdsArray, tags) => {
-  const offerTags = tags.filter(tag => tagIdsArray.includes(tag.id));
+  let offerTags = [];
+  offerTags =
+    tags && tags.filter(tag => tagIdsArray && tagIdsArray.includes(tag.id));
   return offerTags;
 };
