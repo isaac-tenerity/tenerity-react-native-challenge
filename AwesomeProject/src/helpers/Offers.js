@@ -59,3 +59,14 @@ export const sortPromotedOffersFirst = offers => {
   });
   return sortedByPromotedProperty;
 };
+
+/**
+ * Gets the total prices for all the selected offers.
+ * @param myOffers The user's selected offers
+ * @returns The total price.
+ */
+export const getTotalMyOffersPrice = myOffers => {
+  let totalPrice = 0;
+  myOffers.map(offer => (totalPrice += offer.price));
+  return totalPrice;
+};

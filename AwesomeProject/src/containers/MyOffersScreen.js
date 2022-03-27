@@ -22,7 +22,7 @@ import {
   addOfferToMyOffers,
   removeOfferFromMyOffers,
 } from '@/redux/offersSlice';
-import { doesMyOfferExist } from '@/helpers/Offers';
+import { doesMyOfferExist, getTotalMyOffersPrice } from '@/helpers/Offers';
 import ScreenHeading from '@/components/ScreenHeading';
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -95,6 +95,10 @@ const HomeScreen = () => {
           );
         }}
       />
+      <Text style={styles.totalPrice}>
+        <Text style={styles.totalLabel}>TOTAL </Text>
+        {'£' + getTotalMyOffersPrice(myOffers)}
+      </Text>
     </SafeAreaView>
   );
 };
@@ -164,6 +168,16 @@ const styles = StyleSheet.create({
     fontSize: 23,
     alignSelf: 'flex-start',
     marginBottom: 12,
+  },
+  totalLabel: { fontSize: 25 },
+  totalPrice: {
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    fontSize: 27,
+    color: Colors.white,
+    fontWeight: '500',
+    letterSpacing: 2,
+    marginBottom: 5,
   },
 });
 
