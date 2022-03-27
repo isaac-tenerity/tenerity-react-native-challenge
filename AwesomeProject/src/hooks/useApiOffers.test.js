@@ -60,4 +60,20 @@ describe('useApiOffers hook', () => {
     await waitFor(() => result.current.isError);
     expect(result.current.error).toBeTruthy();
   });
+
+  test('timeout failure get offers query should report a timeout error', async () => {
+    const timeoutDelay = 2000;
+    server.use(
+      rest.get('*', (req, res, ctx) =>
+        res(ctx.status(501), ctx.delay(timeoutDelay))
+      )
+    );
+    const { result, waitFor } = renderHook(() => useGetOffers(), {
+      wrapper,
+    });
+
+    jest.runAllTimers();
+    await waitFor(() => result.current.isError, { timeout: timeoutDelay });
+    expect(result.current.error).toBeTruthy();
+  });
 });
