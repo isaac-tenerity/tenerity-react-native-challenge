@@ -15,3 +15,14 @@ export const getAllOffers = async () => await apiClient.get('offers');
  * @returns The tags response.
  */
 export const getAllTags = async () => await apiClient.get('tags');
+
+/**
+ * @description Sets the user's current offer ids to their server record.
+ * @param offerIds The offer ids
+ * @param user The user object.
+ */
+export const updateUserOffers = async (offerIds, user) =>
+  await apiClient.put(`/users/${Config.USER_ID}`, {
+    ...user,
+    selectedOffers: offerIds,
+  });
