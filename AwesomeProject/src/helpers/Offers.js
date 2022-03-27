@@ -27,3 +27,19 @@ export const pluckOfferIdsFromOffers = offers => {
   }
   return offerIds;
 };
+
+/**
+ * Sorts offers by their promoted property.
+ * @param offers The offer records.
+ * @returns Sorted Offers by promoted property.
+ */
+export const sortPromotedOffersFirst = offers => {
+  const sortedByPromotedProperty = offers.sort(function (left, right) {
+    return left.hasOwnProperty('promoted')
+      ? -1
+      : right.hasOwnProperty('promoted')
+      ? 1
+      : 0;
+  });
+  return sortedByPromotedProperty;
+};

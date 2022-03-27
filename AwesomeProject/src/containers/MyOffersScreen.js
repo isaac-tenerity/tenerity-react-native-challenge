@@ -68,7 +68,7 @@ const HomeScreen = () => {
       )}
       <ScreenHeading heading={'My Offers'} />
       <View style={styles.myOffersMessageWrapper}>
-        {myOffers?.length === 0 && (
+        {(!myOffers || myOffers.length === 0) && (
           <ScreenHeading heading={'Add Some Offers To See Them Here'} />
         )}
       </View>

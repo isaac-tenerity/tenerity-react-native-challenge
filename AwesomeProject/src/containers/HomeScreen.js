@@ -23,7 +23,7 @@ import {
   addOfferToMyOffers,
   removeOfferFromMyOffers,
 } from '@/redux/offersSlice';
-import { doesMyOfferExist } from '@/helpers/Offers';
+import { doesMyOfferExist, sortPromotedOffersFirst } from '@/helpers/Offers';
 import ScreenHeading from '@/components/ScreenHeading';
 import useUpdateUser from '@/hooks/useApiUsers';
 const HomeScreen = () => {
@@ -85,7 +85,7 @@ const HomeScreen = () => {
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: true }
         )}
-        data={offers || []}
+        data={sortPromotedOffersFirst(offers) || []}
         keyExtractor={(_, index) => index.toString()}
         horizontal
         pagingEnabled
