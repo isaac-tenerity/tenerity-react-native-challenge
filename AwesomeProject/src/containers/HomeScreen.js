@@ -25,8 +25,15 @@ import {
 } from '@/redux/offersSlice';
 import { doesMyOfferExist } from '@/helpers/Offers';
 import ScreenHeading from '@/components/ScreenHeading';
+import useUpdateUser from '@/hooks/useApiUsers';
 const HomeScreen = () => {
   const { data: offers, isLoading, error, isSuccess } = useGetOffers();
+  const {
+    mutate: mutateUserOffers,
+    isSuccess: isUpdateKPISetSuccess,
+    isError: mutateKpiError,
+  } = useUpdateUser();
+
   const dispatch = useDispatch();
   const myOffers = useSelector(state => state.offers.myOffers);
 
@@ -48,6 +55,10 @@ const HomeScreen = () => {
     },
     [dispatch, myOffers]
   );
+
+  useEffect(() => {
+    mutateUserOffers();
+  }, [mutateUserOffers, myOffers]);
 
   if (isLoading) {
     return (

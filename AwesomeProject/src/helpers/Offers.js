@@ -14,3 +14,16 @@ export const doesMyOfferExist = (offerId, myOffers) => {
     });
   return offerFound;
 };
+
+/**
+ * @description Plucks the offers IDs from the offer records.
+ * @param offers The offer objects.
+ * @returns The offer ids.
+ */
+export const pluckOfferIdsFromOffers = offers => {
+  let offerIds = [];
+  if (offers && offers.length > 0) {
+    offers.map(offer => offerIds.push(offer.id));
+  }
+  return offerIds;
+};
