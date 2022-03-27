@@ -1,5 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import offersReducer from './offersSlice';
+import userReducer from './userSlice';
+import tagsReducer from './tagsSlice';
 import { combineReducers } from 'redux';
 //Redux Persist
 import {
@@ -16,6 +18,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const rootReducer = combineReducers({
   offers: offersReducer,
+  user: userReducer,
+  tags: tagsReducer,
 });
 
 // persist config obj

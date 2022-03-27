@@ -29,6 +29,22 @@ export const pluckOfferIdsFromOffers = offers => {
 };
 
 /**
+ * @description Gets the complete user-selected offer records.
+ * @param allOffers The offer objects.
+ * @returns The user offer records.
+ */
+export const getUserSelectedOffers = (allOffers, user) => {
+  if (user?.selectedOffers?.length > 0) {
+    const userOffers = allOffers.filter(offer =>
+      user.selectedOffers.includes(offer.id)
+    );
+    return userOffers;
+  } else {
+    return [];
+  }
+};
+
+/**
  * Sorts offers by their promoted property.
  * @param offers The offer records.
  * @returns Sorted Offers by promoted property.

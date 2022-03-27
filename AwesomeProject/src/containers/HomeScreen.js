@@ -22,20 +22,54 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   addOfferToMyOffers,
   removeOfferFromMyOffers,
+  setMyOffers,
 } from '@/redux/offersSlice';
-import { doesMyOfferExist, sortPromotedOffersFirst } from '@/helpers/Offers';
+import {
+  doesMyOfferExist,
+  getUserSelectedOffers,
+  sortPromotedOffersFirst,
+} from '@/helpers/Offers';
 import ScreenHeading from '@/components/ScreenHeading';
-import useUpdateUser from '@/hooks/useApiUsers';
+import useUpdateUser, { useGetUser } from '@/hooks/useApiUsers';
+import { setUser } from '@/redux/userSlice';
 const HomeScreen = () => {
-  const { data: offers, isLoading, error, isSuccess } = useGetOffers();
+  const dispatch = useDispatch();
+  const myOffers = useSelector(state => state.offers.myOffers);
+  const userData = useSelector(state => state.user.account);
+
+  const {
+    data: offers,
+    isLoading,
+    error,
+    isSuccess: isGetOffersSuccess,
+  } = useGetOffers();
+
+  const {
+    data: user,
+    isLoading: isGetUserLoading,
+    error: getUserError,
+    isSuccess: isGetUserSuccess,
+    refetch: refetchUserAccount,
+  } = useGetUser();
+
+  useEffect(() => {
+    if (!userData) {
+      dispatch(setMyOffers(getUserSelectedOffers(offers, user)));
+    }
+    dispatch(setUser(user));
+  }, [dispatch, user, offers, userData]);
+
+  const {
+    data: userAccount,
+    isLoading: isUserLoading,
+    error: userError,
+    isSuccess: isUserSuccess,
+  } = useGetUser();
   const {
     mutate: mutateUserOffers,
     isSuccess: isUpdateKPISetSuccess,
     isError: mutateKpiError,
   } = useUpdateUser();
-
-  const dispatch = useDispatch();
-  const myOffers = useSelector(state => state.offers.myOffers);
 
   const {
     data: allTags,
@@ -57,8 +91,11 @@ const HomeScreen = () => {
   );
 
   useEffect(() => {
-    mutateUserOffers();
-  }, [mutateUserOffers, myOffers]);
+    if (userData) {
+      mutateUserOffers({ myOffers, userData });
+      refetchUserAccount();
+    }
+  }, [mutateUserOffers, myOffers, refetchUserAccount, userData]);
 
   if (isLoading) {
     return (

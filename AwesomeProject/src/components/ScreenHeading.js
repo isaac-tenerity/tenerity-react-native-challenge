@@ -16,10 +16,9 @@ const styles = StyleSheet.create({
   heading: {
     textTransform: 'uppercase',
     textAlign: 'center',
-    fontSize: 31,
+    fontSize: 29,
     color: Colors.white,
     fontWeight: '800',
     letterSpacing: 2,
-    marginTop: 3,
   },
 });

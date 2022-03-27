@@ -6,7 +6,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    account: {},
+    account: null,
   },
   reducers: {
     setUser: (state, action) => {
