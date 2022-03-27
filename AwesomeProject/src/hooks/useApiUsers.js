@@ -1,11 +1,16 @@
-import { useQuery } from 'react-query';
+import { QueryClient, useMutation } from 'react-query';
 import { updateUserOffers } from '@/api/ApiQueries';
 
-const updateUser = async () => {
-  const { data } = await updateUserOffers();
+const updateUser = async offerIds => {
+  const { data } = await updateUserOffers(offerIds);
   return data;
 };
 
-const useUpdateUser = () => useQuery('user-offers', updateUser);
+const useUpdateUser = () =>
+  useMutation(offerIds => updateUser(offerIds), {
+    onSuccess: () => {
+      QueryClient.invalidateQueries('user');
+    },
+  });
 
 export default useUpdateUser;
