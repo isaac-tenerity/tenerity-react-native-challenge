@@ -1,11 +1,11 @@
 import { useQuery } from 'react-query';
-import { getAllTags } from '@/api/ApiQueries';
+import { updateUserOffers } from '@/api/ApiQueries';
 
-const updateUserOffers = async () => {
-  const { data } = await getAllTags();
+const updateUser = async () => {
+  const { data } = await updateUserOffers();
   return data;
 };
 
-const useUpdateUserOffers = () => useQuery('user-offers', updateUserOffers);
+const useUpdateUser = () => useQuery('user-offers', updateUser);
 
-export default useUpdateUserOffers;
+export default useUpdateUser;
