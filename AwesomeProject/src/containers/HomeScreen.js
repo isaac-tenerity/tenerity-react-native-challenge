@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   addOfferToMyOffers,
   removeOfferFromMyOffers,
+  setAllOffers,
   setMyOffers,
 } from '@/redux/offersSlice';
 import {
@@ -32,15 +33,19 @@ import {
 import ScreenHeading from '@/components/ScreenHeading';
 import useUpdateUser, { useGetUser } from '@/hooks/useApiUsers';
 import { setUser } from '@/redux/userSlice';
+import { setTags } from '@/redux/tagsSlice';
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const myOffers = useSelector(state => state.offers.myOffers);
-  const userData = useSelector(state => state.user.account);
+  const myOffersCache = useSelector(state => state.offers.myOffers);
+  const allOffersCache = useSelector(state => state.offers.allOffers);
+  const allTagsCache = useSelector(state => state.tags.tags);
+  const userDataCache = useSelector(state => state.user.account);
+  const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const {
     data: offers,
-    isLoading,
-    error,
+    isLoading: isOffersLoading,
+    error: offersError,
     isSuccess: isGetOffersSuccess,
   } = useGetOffers();
 
@@ -52,24 +57,8 @@ const HomeScreen = () => {
     refetch: refetchUserAccount,
   } = useGetUser();
 
-  useEffect(() => {
-    if (!userData) {
-      dispatch(setMyOffers(getUserSelectedOffers(offers, user)));
-    }
-    dispatch(setUser(user));
-  }, [dispatch, user, offers, userData]);
-
-  const {
-    data: userAccount,
-    isLoading: isUserLoading,
-    error: userError,
-    isSuccess: isUserSuccess,
-  } = useGetUser();
-  const {
-    mutate: mutateUserOffers,
-    isSuccess: isUpdateKPISetSuccess,
-    isError: mutateKpiError,
-  } = useUpdateUser();
+  const { mutate: mutateUserOffers, isError: mutateUserOffersError } =
+    useUpdateUser();
 
   const {
     data: allTags,
@@ -77,41 +66,74 @@ const HomeScreen = () => {
     error: tagsError,
     isSuccess: isTagsQuerySucces,
   } = useGetTags();
-  const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (!userDataCache && isGetUserSuccess && isGetOffersSuccess) {
+      dispatch(setMyOffers(getUserSelectedOffers(offers, user)));
+    }
+  }, [
+    dispatch,
+    user,
+    offers,
+    userDataCache,
+    isGetUserSuccess,
+    isGetOffersSuccess,
+  ]);
+
+  useEffect(() => {
+    isGetUserSuccess && dispatch(setUser(user));
+    isGetOffersSuccess && dispatch(setAllOffers(offers));
+    isTagsQuerySucces && dispatch(setTags(allTags));
+  }, [
+    dispatch,
+    user,
+    offers,
+    allTags,
+    isGetUserSuccess,
+    isGetOffersSuccess,
+    isTagsQuerySucces,
+  ]);
 
   const handleAddOrRemoveOfferPress = useCallback(
     offer => {
-      if (myOffers && offer?.id && doesMyOfferExist(offer.id, myOffers)) {
+      if (
+        myOffersCache &&
+        offer?.id &&
+        doesMyOfferExist(offer.id, myOffersCache)
+      ) {
         dispatch(removeOfferFromMyOffers(offer.id));
       } else {
         dispatch(addOfferToMyOffers(offer));
       }
     },
-    [dispatch, myOffers]
+    [dispatch, myOffersCache]
   );
 
   useEffect(() => {
-    if (userData) {
-      mutateUserOffers({ myOffers, userData });
+    if (userDataCache) {
+      mutateUserOffers({ myOffers: myOffersCache, userData: userDataCache });
       refetchUserAccount();
     }
-  }, [mutateUserOffers, myOffers, refetchUserAccount, userData]);
+  }, [mutateUserOffers, myOffersCache, refetchUserAccount, userDataCache]);
 
-  if (isLoading) {
+  if (isOffersLoading || isTagsQueryLoading || isGetUserLoading) {
     return (
       <SafeAreaView style={styles.safeArea}>
         <ActivityIndicator size="large" />
       </SafeAreaView>
     );
   }
+
+  let requestError = offersError || getUserError || tagsError;
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar translucent backgroundColor="transparent" />
-      <BlurredBGImage offers={offers} scrollX={scrollX} />
+      <BlurredBGImage offers={allOffersCache} scrollX={scrollX} />
       <View style={[styles.logoWrapper]}>
         <Image source={LogoImage} style={styles.logoImage} />
       </View>
-      {error && (
+      {requestError && (
         <View style={[styles.logoWrapper]}>
           <Text>Error fetching data. Resorting to offline mode.</Text>
         </View>
@@ -122,7 +144,7 @@ const HomeScreen = () => {
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: true }
         )}
-        data={sortPromotedOffersFirst(offers) || []}
+        data={sortPromotedOffersFirst(allOffersCache) || []}
         keyExtractor={(_, index) => index.toString()}
         horizontal
         pagingEnabled
@@ -134,8 +156,11 @@ const HomeScreen = () => {
               offerRecord={item}
               index={index}
               scrollXP={scrollX}
-              allTags={allTags}
-              doesOfferExistInMyOffers={doesMyOfferExist(item.id, myOffers)}
+              allTags={allTagsCache}
+              doesOfferExistInMyOffers={doesMyOfferExist(
+                item.id,
+                myOffersCache
+              )}
             />
           );
         }}
