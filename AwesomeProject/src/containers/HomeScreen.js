@@ -24,6 +24,7 @@ import {
   removeOfferFromMyOffers,
 } from '@/redux/offersSlice';
 import { doesMyOfferExist } from '@/helpers/Offers';
+import ScreenHeading from '@/components/ScreenHeading';
 const HomeScreen = () => {
   const { data: offers, isLoading, error, isSuccess } = useGetOffers();
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const HomeScreen = () => {
           <Text>Error fetching data. Resorting to offline mode.</Text>
         </View>
       )}
+      <ScreenHeading heading={'Home'} />
       <Animated.FlatList
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
@@ -100,7 +102,7 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.safeAreaBg,
+    backgroundColor: Colors.black,
     justifyContent: 'center',
     alignItems: 'center',
   },

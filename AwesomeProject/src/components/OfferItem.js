@@ -7,8 +7,8 @@ import Tags from '@/components/Tags';
 import PriceAndOfferType from '@/components/PriceAndOfferType';
 
 const { width, height } = Dimensions.get('screen');
-const imageW = width * 0.88;
-const imageH = imageW * 0.7;
+const imageW = width * 0.84;
+const imageH = imageW * 0.65;
 
 export const OfferItem = ({
   image,
@@ -72,7 +72,7 @@ export const OfferItem = ({
             mode="contained"
             onPress={() => handleAddOrRemoveOfferPress(offerRecord)}
           >
-            {doesOfferExistInMyOffers ? 'Remove Offer' : 'Add Offer'}
+            {doesOfferExistInMyOffers ? 'Remove ' : 'Add Offer'}
           </Button>
           <PriceAndOfferType
             price={price}
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginTop: 30,
-    color: 'white',
+    color: Colors.white,
     textTransform: 'uppercase',
     fontSize: 18,
     fontWeight: '800',
