@@ -57,8 +57,7 @@ const HomeScreen = () => {
     refetch: refetchUserAccount,
   } = useGetUser();
 
-  const { mutate: mutateUserOffers, isSuccess: isMutateUserOffersSuccess } =
-    useUpdateUser();
+  const { mutate: mutateUserOffers } = useUpdateUser();
 
   const {
     data: allTags,
@@ -112,12 +111,9 @@ const HomeScreen = () => {
   useEffect(() => {
     if (userDataCache) {
       mutateUserOffers({ myOffers: myOffersCache, userData: userDataCache });
+      refetchUserAccount();
     }
   }, [mutateUserOffers, myOffersCache, refetchUserAccount, userDataCache]);
-
-  useEffect(() => {
-    refetchUserAccount();
-  }, [refetchUserAccount, isMutateUserOffersSuccess]);
 
   if (isOffersLoading || isTagsQueryLoading || isGetUserLoading) {
     return (
