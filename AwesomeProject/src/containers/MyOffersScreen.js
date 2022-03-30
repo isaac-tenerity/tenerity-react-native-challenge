@@ -27,12 +27,12 @@ import ScreenHeading from '@/components/ScreenHeading';
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const myOffers = useSelector(state => state.offers.myOffers);
+  const allTagsCache = useSelector(state => state.tags.tags);
 
   const {
     data: allTags,
     isLoading: isTagsQueryLoading,
     error: tagsError,
-    isSuccess: isTagsQuerySucces,
   } = useGetTags();
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -89,7 +89,7 @@ const HomeScreen = () => {
               offerRecord={item}
               index={index}
               scrollXP={scrollX}
-              allTags={allTags}
+              allTags={allTags || allTagsCache}
               doesOfferExistInMyOffers={doesMyOfferExist(item.id, myOffers)}
             />
           );
