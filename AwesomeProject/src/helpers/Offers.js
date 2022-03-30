@@ -50,13 +50,16 @@ export const getUserSelectedOffers = (allOffers, user) => {
  * @returns Sorted Offers by promoted property.
  */
 export const sortPromotedOffersFirst = offers => {
-  let sortedByPromotedProperty = [...offers].sort(function (left, right) {
-    return left.hasOwnProperty('promoted')
-      ? -1
-      : right.hasOwnProperty('promoted')
-      ? 1
-      : 0;
-  });
+  let sortedByPromotedProperty = [];
+  if (offers && offers.length > 0) {
+    sortedByPromotedProperty = [...offers].sort(function (left, right) {
+      return left.hasOwnProperty('promoted')
+        ? -1
+        : right.hasOwnProperty('promoted')
+        ? 1
+        : 0;
+    });
+  }
   return sortedByPromotedProperty;
 };
 
